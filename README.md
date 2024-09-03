@@ -1,7 +1,8 @@
 # AI-RAG
 
-# Full-Tutorial
+# Full-Tutorial by @lunaxoniichan
 Summarize: https://www.youtube.com/watch?v=_K0lRd-4LpM&t=1s
+
 How to Get-Start: https://www.youtube.com/live/z5kH4tCDgMA?si=yOyzSHH3MCXqaLge
 
 # Requirements
