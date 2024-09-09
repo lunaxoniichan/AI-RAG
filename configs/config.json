@@ -13,7 +13,11 @@
     "search_kwargs": {"score_threshold": 0.5, "k": 2}
   },
   "llm": {
+<<<<<<< HEAD
     "model": "model/llama-2-7b-chat.ggmlv3.q2_K.bin",
+=======
+    "model": "model/llama-2-7b-chat.Q2_K.gguf",
+>>>>>>> 6468235ebeb0537585ff79f36380e0f3c623b215
     "model_type": "llama",
     "max_new_tokens": 512,
     "temperature": 0.1

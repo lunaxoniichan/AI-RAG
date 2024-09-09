@@ -83,13 +83,6 @@ if __name__ == '__main__':
 
     embeddings = load_embedding_model()
     # add & update docs vector
-    print(insert_update_ids)
-    print("-----------")
-    print(delete_ids)
-    print("-----------")
-    print(insert_update_texts)
-    print("-----------")
-    print(insert_update_metadata)
     pgv_db = update_vector_store(embeddings, COLLECTION_NAME, CONNECTION_STRING,
                                  insert_update_ids=insert_update_ids,
                                  delete_ids=delete_ids,
