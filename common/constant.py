@@ -21,7 +21,7 @@ collection_names = {
 # DATA - CONFIG PATH
 PATH_MODEL_CONFIGS = "configs/config.json"
 PATH_MODEL_PROMPT = "configs/prompt.txt"
-DIR_DATA_ETC = "docs/sample"
+DIR_DATA_ETC = "docs/bomb"
 
 # EMBEDDING
 COLLECTION_NAME = "license_data"

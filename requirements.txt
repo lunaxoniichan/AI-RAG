@@ -12,3 +12,4 @@ requests
 psycopg2
 pgvector
 langchain_community
+openai

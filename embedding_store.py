@@ -57,7 +57,7 @@ def update_vector_store(embeddings, collection_name, connection_string, insert_u
 if __name__ == '__main__':
     # todo: modify this to scope files
     get_messages = {
-        "non-delete": {"1"},  # To create-update related file in vectorDB
+        "non-delete": {"5", "6", "11"},  # To create-update related file in vectorDB
         "delete": {}  # To delete related file from vectorDB
     }
 
@@ -71,8 +71,7 @@ if __name__ == '__main__':
     for doc in texts:
         pageId = str(re.findall(r'\d+', doc.metadata["source"])[-1])
         page_content = doc.page_content
-
-        if pageId in get_messages["non-delete"]:
+        if (pageId in get_messages["non-delete"]) or ("all" in get_messages["non-delete"]):
             non_delete_ids.append(pageId)
             insert_update_ids.append(pageId)
             insert_update_texts.append(doc.page_content)
@@ -84,6 +83,13 @@ if __name__ == '__main__':
 
     embeddings = load_embedding_model()
     # add & update docs vector
+    print(insert_update_ids)
+    print("-----------")
+    print(delete_ids)
+    print("-----------")
+    print(insert_update_texts)
+    print("-----------")
+    print(insert_update_metadata)
     pgv_db = update_vector_store(embeddings, COLLECTION_NAME, CONNECTION_STRING,
                                  insert_update_ids=insert_update_ids,
                                  delete_ids=delete_ids,
@@ -92,7 +98,7 @@ if __name__ == '__main__':
                                  )
     pgv_db.documents = insert_update_texts
     # >>> for tuning threshold
-    query = "What is Apache License ?"
+    query = "There have 3 wires. The last wire is white. What should I do ?"
     docs_with_score = pgv_db.similarity_search_with_relevance_scores(query, k=2)
     print(query)
     for doc, score in docs_with_score:

@@ -2,16 +2,21 @@ from langchain import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import CTransformers
 from langchain.chains import RetrievalQA
+from langchain.llms import OpenAI
 import chainlit as cl
 import re
 from common.file_helper import FileHelper
 from common.constant import *
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
 
 # load model configs
 
 model_configs = FileHelper.read_json(PATH_MODEL_CONFIGS)
 custom_prompt_template = FileHelper.read_txt(PATH_MODEL_PROMPT)
 
+MODEL = "OpenAI"
 
 def set_custom_prompt():
     """
@@ -36,16 +41,20 @@ def retrieval_qa_chain(llm, prompt, db):
 
 # load the model
 def load_llm():
-    llm = CTransformers(model=model_configs["llm"]["model"],
-                        model_type=model_configs["llm"]["model_type"],
-                        return_full_text=False,
-                        num_return_sequences=1,
-                        # eos_token_id=tokenizer.eos_token_id,
-                        # logits_processor=LogitsProcessorList,
-                        repetition_penalty=1.15,
-                        max_length=4096,
-                        max_new_tokens=model_configs["llm"]["max_new_tokens"],
-                        temperature=model_configs["llm"]["temperature"])
+    if MODEL == "OpenAI":
+        llm = OpenAI(temperature=model_configs["llm"]["temperature"], api_key=config["OPENAI_API_KEY"])
+        print(llm)
+    else:
+        llm = CTransformers(model=model_configs["llm"]["model"],
+                            model_type=model_configs["llm"]["model_type"],
+                            return_full_text=False,
+                            num_return_sequences=1,
+                            # eos_token_id=tokenizer.eos_token_id,
+                            # logits_processor=LogitsProcessorList,
+                            repetition_penalty=1.15,
+                            max_length=4096,
+                            max_new_tokens=model_configs["llm"]["max_new_tokens"],
+                            temperature=model_configs["llm"]["temperature"])
     return llm
 
 
